@@ -86,31 +86,46 @@ public class VuelosData {
 
     
     public void buscarVuelo(Vuelo vuelo){
+
         try {
+
             String sql = "SELECT * FROM tbl_vuelo INNER JOIN asiento ON tbl_vuelo.id_vuelo = asiento.id_vuelo WHERE tbl_vuelo.id_vuelo = ? ";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, vuelo.getNumeroVuelo());
+ 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
             vuelo.setAerolinea(resultSet.getString(2));
             vuelo.setAeronave(resultSet.getString(3));
             vuelo.setCiudadDestino(resultSet.getString(4));
             vuelo.setCiudadOrigen(resultSet.getString(5));
-            
-            
+                 
             vuelo.setFechaPartida(resultSet.getString(6));
             vuelo.setFechaLlegada(resultSet.getString(7));
-            
-            
+
             vuelo.setHoraPartida(resultSet.getString(8));
             vuelo.setHoraLlegada(resultSet.getString(9));
             vuelo.setPrecioVuelo(resultSet.getFloat(10));
             vuelo.setEstadoVuelo(resultSet.getString(12));
-            }
+            }  
+   
         } catch (SQLException ex) {
             Logger.getLogger(VuelosData.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error al obtener el Vuelo: " + ex.getMessage());
         }
+    } 
+
+    public int eliminarVuelo(int id){
+        try {
+            String sql = "DELETE tbl_vuelo.*, asiento.* FROM tbl_vuelo INNER JOIN asiento ON tbl_vuelo.id_vuelo = asiento.id_vuelo WHERE tbl_vuelo.id_vuelo = ? ";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            return id;
+        } catch (SQLException ex) {
+            Logger.getLogger(VuelosData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
     
 }
