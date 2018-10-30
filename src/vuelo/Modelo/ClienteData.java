@@ -34,7 +34,7 @@ public class ClienteData {
             statement.setString(3, cliente.getTarjeta());
             statement.executeUpdate();
             ResultSet rs = statement.getGeneratedKeys();
-            if(rs.next()){
+        if(rs.next()){
             cliente.setIdCliente(rs.getInt(1));
             System.out.println("Apellido, Nombre: " + cliente.getNombre() );
         }else{

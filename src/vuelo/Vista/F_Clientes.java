@@ -5,7 +5,6 @@
  */
 package vuelo.Vista;
 
-import java.beans.PropertyVetoException;
 import vuelo.Modelo.Conexion;
 import vuelo.Modelo.ClienteData;
 import java.util.logging.Level;
@@ -13,24 +12,20 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import vuelo.Control.Clientes;
 
-
 /**
  *
  * @author Sebastian
  */
 public class F_Clientes extends javax.swing.JInternalFrame {
-    
-    
-    public int idCliente;
+ 
     /**
      * Creates new form F_Clientes
      */
     public F_Clientes() {
         initComponents();
         btnmodificar.setEnabled(false);//deshabilta el boton modificar
-        btneliminar.setEnabled(false);//deshabilta el boton eliminar
+        btneliminar.setEnabled(false);//deshabilta el boton eliminar  
     }
-    
     
     void LimpiarCajas(){
     txtnombre.setText("");
@@ -38,7 +33,6 @@ public class F_Clientes extends javax.swing.JInternalFrame {
     txttarjeta.setText("");
     lblid.setText(""); //Importante: limpiar la etiqueta contenedora de mi id de tabla
     }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -199,7 +193,7 @@ public class F_Clientes extends javax.swing.JInternalFrame {
         try {
         conexion = new Conexion("jdbc:mysql://siscollege.dynu.net:3306/vuelos", "connect", "123456"); // paso el dato a las variables de la clase conexion
         ClienteData clienteData = new ClienteData(conexion);
-        Clientes cliente = new Clientes(txtnombre.getText(), txtpasaporte.getText(), txttarjeta.getText()); // Paso los valores de las cajas
+        Clientes cliente = new Clientes(txtnombre.getText(), txtpasaporte.getText(), txttarjeta.getText()); // Paso los valores de las textbox
         clienteData.guardarCliente(cliente);
         LimpiarCajas(); // limpio los texboxs
           } catch (ClassNotFoundException ex) {
@@ -211,12 +205,11 @@ public class F_Clientes extends javax.swing.JInternalFrame {
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         // TODO add your handling code here:
-            //EVENTOS
             
             btnguardar.setEnabled(false); //bloquear boton guardar
             btnmodificar.setEnabled(true); //habilito el boton modificar
             btneliminar.setEnabled(true); //habilito el boton eliminar
-           if ("".equals(txtpasaporte.getText())){ //Verifico qeu el campo de texto pasaporte no este vacio
+           if ("".equals(txtpasaporte.getText())){ //Verifico que el campo de texto pasaporte no este vacio
                 JOptionPane.showMessageDialog(null, "El campo Nº de pasaporte no puede estar vacio.");
                 btnmodificar.setEnabled(false);
                 btneliminar.setEnabled(false);
@@ -251,8 +244,7 @@ public class F_Clientes extends javax.swing.JInternalFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(F_Clientes.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error al instanciar la clase conexion: " + ex.getMessage());
-        }
-        
+        }     
     }//GEN-LAST:event_btnmodificarActionPerformed
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
@@ -261,8 +253,8 @@ public class F_Clientes extends javax.swing.JInternalFrame {
         try {
             conexion = new Conexion("jdbc:mysql://siscollege.dynu.net:3306/vuelos", "connect", "123456"); // paso el dato a las variables de la clase conexion
             ClienteData clienteData = new ClienteData(conexion);
-            Clientes cliente = new Clientes(Integer.parseInt(lblid.getText()), txtnombre.getText(), txtpasaporte.getText(), txttarjeta.getText());
-            clienteData.eliminarCliente(cliente);
+            Clientes cliente = new Clientes(Integer.parseInt(lblid.getText()), txtnombre.getText(), txtpasaporte.getText(), txttarjeta.getText()); // paso el id que tengo en el label
+            clienteData.eliminarCliente(cliente); // Elimino el id de la tabla cliente.
             LimpiarCajas(); // limpio los texbox
             System.out.println("Registro Eliminado Correctamente");
         } catch (ClassNotFoundException ex) {

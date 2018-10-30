@@ -30,14 +30,15 @@ public class F_Principal extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        btnSalir = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         MClientes = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         MCiudades = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        btnSalir = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,26 +46,17 @@ public class F_Principal extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1048, Short.MAX_VALUE)
+            .addGap(0, 1206, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 587, Short.MAX_VALUE)
+            .addGap(0, 789, Short.MAX_VALUE)
         );
+
+        jMenuBar1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "__________________nmm ( º - º ) mmn__________________", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
 
         jMenu1.setMnemonic('a');
         jMenu1.setText("Archivo");
-
-        btnSalir.setMnemonic('s');
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        jMenu1.add(btnSalir);
-
-        jMenuBar1.add(jMenu1);
 
         jMenu8.setMnemonic('c');
         jMenu8.setText("Cliente");
@@ -79,11 +71,7 @@ public class F_Principal extends javax.swing.JFrame {
         jMenu8.add(MClientes);
         MClientes.getAccessibleContext().setAccessibleDescription("");
 
-        jMenuBar1.add(jMenu8);
-
-        jMenu3.setMnemonic('c');
-        jMenu3.setText("Compra");
-        jMenuBar1.add(jMenu3);
+        jMenu1.add(jMenu8);
 
         jMenu4.setMnemonic('c');
         jMenu4.setText("Ciudades");
@@ -97,14 +85,42 @@ public class F_Principal extends javax.swing.JFrame {
         });
         jMenu4.add(MCiudades);
 
-        jMenuBar1.add(jMenu4);
+        jMenuItem1.setText("Paises");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem1);
 
-        jMenu5.setMnemonic('a');
-        jMenu5.setText("Asientos");
-        jMenuBar1.add(jMenu5);
+        jMenu1.add(jMenu4);
 
-        jMenu6.setMnemonic('r');
+        btnSalir.setMnemonic('s');
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnSalir);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu3.setMnemonic('p');
+        jMenu3.setText("Pasajes");
+        jMenuBar1.add(jMenu3);
+
+        jMenu6.setMnemonic('v');
         jMenu6.setText("Vuelos");
+
+        jMenuItem2.setText("Vuelos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem2);
+
         jMenuBar1.add(jMenu6);
 
         setJMenuBar(jMenuBar1);
@@ -140,12 +156,26 @@ public class F_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_MClientesActionPerformed
 
     private void MCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MCiudadesActionPerformed
+        FDOC_Ciudad fc = new FDOC_Ciudad(this, rootPaneCheckingEnabled);
+        fc.setVisible(true);
+    }//GEN-LAST:event_MCiudadesActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        F_Ciudad fc = new F_Ciudad();
+        FDOC_Pais fc = new FDOC_Pais(this, rootPaneCheckingEnabled);
+        fc.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        F_Vuelo fc = new F_Vuelo();
         fc.setVisible(true);
         escritorio.add(fc);
         escritorio.moveToFront(fc);
-    }//GEN-LAST:event_MCiudadesActionPerformed
+
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,9 +220,10 @@ public class F_Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 }
