@@ -7,9 +7,7 @@ package vuelo.Vista;
 
 import java.awt.Color;
 import java.sql.SQLException;
-
 import java.util.Date;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -118,6 +116,7 @@ public static DefaultComboBoxModel model_ciuda;
         jPanel4 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        btneliminarvuelo = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -186,6 +185,14 @@ public static DefaultComboBoxModel model_ciuda;
             }
         });
 
+        btneliminarvuelo.setMnemonic('e');
+        btneliminarvuelo.setText("Eliminar");
+        btneliminarvuelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarvueloActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -195,7 +202,9 @@ public static DefaultComboBoxModel model_ciuda;
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btneliminarvuelo)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,7 +212,8 @@ public static DefaultComboBoxModel model_ciuda;
                 .addGap(16, 16, 16)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(btneliminarvuelo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -558,6 +568,7 @@ public static DefaultComboBoxModel model_ciuda;
             }
         ));
         jtasientos.setToolTipText("");
+        jtasientos.setEnabled(false);
         jtasientos.setName(""); // NOI18N
         jScrollPane2.setViewportView(jtasientos);
 
@@ -639,7 +650,7 @@ public static DefaultComboBoxModel model_ciuda;
             }
         });
 
-        jButton3.setText("{B}");
+        jButton3.setText("Buscar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -850,9 +861,7 @@ public static DefaultComboBoxModel model_ciuda;
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         Procedimientos procedimientos = new Procedimientos();
-        
 
-        
         Conexion conexion;
         try {
             conexion = new Conexion("jdbc:mysql://siscollege.dynu.net:3306/vuelos", "connect", "123456");
@@ -876,26 +885,47 @@ public static DefaultComboBoxModel model_ciuda;
          
            lblestado.setText(vuelo.getEstadoVuelo());
          
+           ///CARGAR ASIENTOS
+         AsientoData asientoData = new AsientoData(conexion);
+         int val =  Integer.parseInt(txtnumerovuelo.getText());
+         asientoData.CargarTablaAsientos(jtasientos , val);
+         jspventana.setEnabled(false);
+         jsppasillo.setEnabled(false);
+         txtventanilla.setEnabled(false);
+         txtpasillo.setEnabled(false);
+         jButton4.setEnabled(false);
+         jcboxdisponible.setEnabled(false);
+         
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(F_Vuelo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        Logger.getLogger(F_Vuelo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+        Logger.getLogger(F_Vuelo.class.getName()).log(Level.SEVERE, null, ex);
+    }
         
         
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btneliminarvueloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarvueloActionPerformed
+       
+        try { 
+            Conexion conexion;
+            conexion = new Conexion("jdbc:mysql://siscollege.dynu.net:3306/vuelos", "connect", "123456");
+            VuelosData vd = new VuelosData(conexion);
+            int val =  Integer.parseInt(txtnumerovuelo.getText());
+            vd.eliminarVuelo(val);
+            System.out.println("Vuelo eliminado correctamente");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(F_Vuelo.class.getName()).log(Level.SEVERE, null, ex);
+           System.out.println("No se ha podido eliminar el vuelo");
+        }
+ 
+    }//GEN-LAST:event_btneliminarvueloActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnagregarciudad1;
     private javax.swing.JButton btnagregarciudad2;
+    private javax.swing.JButton btneliminarvuelo;
     public static javax.swing.JComboBox<String> cbxciudaddestino;
     public static javax.swing.JComboBox<String> cbxciudadorigen;
     public static javax.swing.JComboBox<String> cbxpaisdestino;
@@ -934,7 +964,7 @@ public static DefaultComboBoxModel model_ciuda;
     private com.toedter.calendar.JDateChooser jdcsalida;
     private javax.swing.JSpinner jsppasillo;
     private javax.swing.JSpinner jspventana;
-    private javax.swing.JTable jtasientos;
+    public javax.swing.JTable jtasientos;
     private lu.tudor.santec.jtimechooser.JTimeChooser jtcllegada;
     private lu.tudor.santec.jtimechooser.JTimeChooser jtcsalida;
     private javax.swing.JLabel lblestado;
@@ -944,7 +974,7 @@ public static DefaultComboBoxModel model_ciuda;
     private javax.swing.JRadioButton rbretrasado;
     private javax.swing.JTextField txtaerolinea;
     private javax.swing.JTextField txtaeronave;
-    private javax.swing.JTextField txtnumerovuelo;
+    public javax.swing.JTextField txtnumerovuelo;
     private javax.swing.JTextField txtpasillo;
     private javax.swing.JTextField txtpreciovuelo;
     private javax.swing.JTextField txtventanilla;
