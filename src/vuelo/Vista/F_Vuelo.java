@@ -914,6 +914,8 @@ public static DefaultComboBoxModel model_ciuda;
             int val =  Integer.parseInt(txtnumerovuelo.getText());
             vd.eliminarVuelo(val);
             System.out.println("Vuelo eliminado correctamente");
+            LimpiarFormulario();
+            LimpiarAsientos();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(F_Vuelo.class.getName()).log(Level.SEVERE, null, ex);
            System.out.println("No se ha podido eliminar el vuelo");
