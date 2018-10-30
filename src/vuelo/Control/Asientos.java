@@ -7,7 +7,7 @@ package vuelo.Control;
 
 /**
  *
- * @author Sebastian
+ * @author Sebastian Administrador
  */
 public class Asientos {
 
